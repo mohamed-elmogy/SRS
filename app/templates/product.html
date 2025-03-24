@@ -1,0 +1,482 @@
+{% extends "layout.html" %}
+{% block content %}
+    <!-- Shop Detail Start -->
+    <div class="container-fluid pb-5">
+        <div class="row px-xl-5">
+            <div class="col-lg-5 mb-30">
+                <div id="product-carousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner bg-light">
+                        <div class="carousel-item active">
+                            <img class="w-100 h-100"
+                                 src="{{ url_for('static', filename='profile_pics/'+product.image_file) }}" alt="Image">
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
+                        <i class="fa fa-2x fa-angle-left text-dark"></i>
+                    </a>
+                    <a class="carousel-control-next" href="#product-carousel" data-slide="next">
+                        <i class="fa fa-2x fa-angle-right text-dark"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-7 h-auto mb-30">
+                <div class="h-100 bg-light p-30">
+                    <h3>{{ product.product_name }}</h3>
+                    <div class="d-flex mb-3">
+                        <div class="text-primary mr-2">
+                            {% if product.rating==0 %}
+                                <small class="far fa-star"></small>
+                                <small class="far fa-star"></small>
+                                <small class="far fa-star"></small>
+                                <small class="far fa-star"></small>
+                                <small class="far fa-star"></small>
+                            {% elif product.rating>0 and product.rating<1 %}
+                                <small class="fas fa-star-half-alt"></small>
+                                <small class="far fa-star"></small>
+                                <small class="far fa-star"></small>
+                                <small class="far fa-star"></small>
+                                <small class="far fa-star"></small>
+                            {% elif product.rating==1 %}
+                                <small class="fas fa-star"></small>
+                                <small class="far fa-star"></small>
+                                <small class="far fa-star"></small>
+                                <small class="far fa-star"></small>
+                                <small class="far fa-star"></small>
+                            {% elif product.rating>1 and product.rating<2 %}
+                                <small class="fas fa-star"></small>
+                                <small class="far fa-star-half-alt"></small>
+                                <small class="far fa-star"></small>
+                                <small class="far fa-star"></small>
+                                <small class="far fa-star"></small>
+                            {% elif product.rating==2 %}
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="far fa-star"></small>
+                                <small class="far fa-star"></small>
+                                <small class="far fa-star"></small>
+                            {% elif product.rating>2 and product.rating<3 %}
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star-half-alt"></small>
+                                <small class="far fa-star"></small>
+                                <small class="far fa-star"></small>
+                            {% elif product.rating==3 %}
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="far fa-star"></small>
+                                <small class="far fa-star"></small>
+                            {% elif product.rating>3 and product.rating<4 %}
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star-half-alt"></small>
+                                <small class="far fa-star"></small>
+                            {% elif product.rating==4 %}
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="far fa-star"></small>
+                            {% elif product.rating>4 and product.rating<5 %}
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star-half-alt"></small>
+                            {% elif product.rating==5 %}
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                            {% endif %}
+                        </div>
+                        <small class="pt-1">({{ product.raters }} Reviews)</small>
+                    </div>
+                    {% if product.discount==0 %}
+                        <h3>{{ product.price }}L.E</h3>
+                    {% elif product.discount<1 %}
+                        <h3>{{ product.price-(product.price*product.discount) }}L.E</h3>
+                        <h4 class="text-muted ml-2">
+                            <del>{{ product.price }}L.E</del>
+                        </h4>
+                    {% endif %}
+                    <p class="mb-4">{{ product.description }}</p>
+                    {% if is_seller and current_user.id==product.seller.id %}
+                        <div class="bg-light p-30 mb-5">
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <form action="{{ url_for('update_product', product_id=product.id) }}" method="post">
+                                        <button class="btn btn-primary px-3"><i
+                                                class="fa fa-shopping-cart mr-1"></i> Update
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <form action="{{ url_for('delete_product', product_id=product.id) }}" method="post">
+                                        <button class="btn btn-primary px-3"><i
+                                                class="fa fa-shopping-cart mr-1"></i> Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    {% elif not is_seller %}
+                        <form class="mb-30" action="" method="post">
+                            {{ form.hidden_tag() }}
+                            <div class="form-group">
+                                {{ form.voucher.label(class="form-control-label") }}
+                                {% if form.voucher.errors %}
+                                    {{ form.voucher(class="form-control form-control-md is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.voucher.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.voucher(class="form-control form-control-md") }}
+                                {% endif %}
+                            </div>
+                            <button class="btn btn-primary px-3"><i
+                                    class="fa fa-shopping-cart mr-1">{{ form.add_to_cart(class="btn btn-primary px-3") }}</i>
+                            </button>
+                        </form>
+                    {% endif %}
+                </div>
+                <div class="d-flex pt-2">
+                    <strong class="text-dark mr-2">Share on:</strong>
+                    <div class="d-inline-flex">
+                        <a class="text-dark px-2" href="">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a class="text-dark px-2" href="">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a class="text-dark px-2" href="">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a class="text-dark px-2" href="">
+                            <i class="fab fa-pinterest"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row px-xl-5">
+        <div class="col">
+            <div class="bg-light p-30">
+                <div class="nav nav-tabs mb-4">
+                    <a class="nav-item nav-link text-dark active" data-toggle="tab"
+                       href="#tab-pane-1">Description</a>
+                    <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-2">Information</a>
+                    <a class="nav-item nav-link text-dark" data-toggle="tab" href="#tab-pane-3">Reviews
+                        ({{ total }})</a>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="tab-pane-1">
+                        <h4 class="mb-3">Product Description</h4>
+                        <p>Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea. Consetetur vero aliquyam
+                            invidunt duo dolores et duo sit. Vero diam ea vero et dolore rebum, dolor rebum eirmod
+                            consetetur invidunt sed sed et, lorem duo et eos elitr, sadipscing kasd ipsum rebum
+                            diam. Dolore diam stet rebum sed tempor kasd eirmod. Takimata kasd ipsum accusam
+                            sadipscing, eos dolores sit no ut diam consetetur duo justo est, sit sanctus diam tempor
+                            aliquyam eirmod nonumy rebum dolor accusam, ipsum kasd eos consetetur at sit rebum, diam
+                            kasd invidunt tempor lorem, ipsum lorem elitr sanctus eirmod takimata dolor ea
+                            invidunt.</p>
+                        <p>Dolore magna est eirmod sanctus dolor, amet diam et eirmod et ipsum. Amet dolore tempor
+                            consetetur sed lorem dolor sit lorem tempor. Gubergren amet amet labore sadipscing clita
+                            clita diam clita. Sea amet et sed ipsum lorem elitr et, amet et labore voluptua sit
+                            rebum. Ea erat sed et diam takimata sed justo. Magna takimata justo et amet magna
+                            et.</p>
+                    </div>
+                    <div class="tab-pane fade" id="tab-pane-2">
+                        <h4 class="mb-3">Additional Information</h4>
+                        <p>Eos no lorem eirmod diam diam, eos elitr et gubergren diam sea. Consetetur vero aliquyam
+                            invidunt duo dolores et duo sit. Vero diam ea vero et dolore rebum, dolor rebum eirmod
+                            consetetur invidunt sed sed et, lorem duo et eos elitr, sadipscing kasd ipsum rebum
+                            diam. Dolore diam stet rebum sed tempor kasd eirmod. Takimata kasd ipsum accusam
+                            sadipscing, eos dolores sit no ut diam consetetur duo justo est, sit sanctus diam tempor
+                            aliquyam eirmod nonumy rebum dolor accusam, ipsum kasd eos consetetur at sit rebum, diam
+                            kasd invidunt tempor lorem, ipsum lorem elitr sanctus eirmod takimata dolor ea
+                            invidunt.</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item px-0">
+                                        Sit erat duo lorem duo ea consetetur, et eirmod takimata.
+                                    </li>
+                                    <li class="list-group-item px-0">
+                                        Amet kasd gubergren sit sanctus et lorem eos sadipscing at.
+                                    </li>
+                                    <li class="list-group-item px-0">
+                                        Duo amet accusam eirmod nonumy stet et et stet eirmod.
+                                    </li>
+                                    <li class="list-group-item px-0">
+                                        Takimata ea clita labore amet ipsum erat justo voluptua. Nonumy.
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item px-0">
+                                        Sit erat duo lorem duo ea consetetur, et eirmod takimata.
+                                    </li>
+                                    <li class="list-group-item px-0">
+                                        Amet kasd gubergren sit sanctus et lorem eos sadipscing at.
+                                    </li>
+                                    <li class="list-group-item px-0">
+                                        Duo amet accusam eirmod nonumy stet et et stet eirmod.
+                                    </li>
+                                    <li class="list-group-item px-0">
+                                        Takimata ea clita labore amet ipsum erat justo voluptua. Nonumy.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="tab-pane-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="mb-4">{{ total }} review for "{{ product.product_name }}"</h4>
+                                {% for i in range(total) %}
+                                    <div class="media mb-4">
+                                        <div class="media-body">
+                                            <h6>{{ raters[i] }}</h6>
+                                            <div class="text-primary mr-2">
+                                                {% if stars[i]==0 %}
+                                                    <small class="far fa-star"></small>
+                                                    <small class="far fa-star"></small>
+                                                    <small class="far fa-star"></small>
+                                                    <small class="far fa-star"></small>
+                                                    <small class="far fa-star"></small>
+                                                {% elif stars[i]>0 and stars[i]<1 %}
+                                                    <small class="fas fa-star-half-alt"></small>
+                                                    <small class="far fa-star"></small>
+                                                    <small class="far fa-star"></small>
+                                                    <small class="far fa-star"></small>
+                                                    <small class="far fa-star"></small>
+                                                {% elif stars[i]==1 %}
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="far fa-star"></small>
+                                                    <small class="far fa-star"></small>
+                                                    <small class="far fa-star"></small>
+                                                    <small class="far fa-star"></small>
+                                                {% elif stars[i]>1 and stars[i]<2 %}
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="far fa-star-half-alt"></small>
+                                                    <small class="far fa-star"></small>
+                                                    <small class="far fa-star"></small>
+                                                    <small class="far fa-star"></small>
+                                                {% elif stars[i]==2 %}
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="far fa-star"></small>
+                                                    <small class="far fa-star"></small>
+                                                    <small class="far fa-star"></small>
+                                                {% elif stars[i]>2 and stars[i]<3 %}
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star-half-alt"></small>
+                                                    <small class="far fa-star"></small>
+                                                    <small class="far fa-star"></small>
+                                                {% elif stars[i]==3 %}
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="far fa-star"></small>
+                                                    <small class="far fa-star"></small>
+                                                {% elif stars[i]>3 and stars[i]<4 %}
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star-half-alt"></small>
+                                                    <small class="far fa-star"></small>
+                                                {% elif stars[i]==4 %}
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="far fa-star"></small>
+                                                {% elif stars[i]>4 and stars[i]<5 %}
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star-half-alt"></small>
+                                                {% elif stars[i]==5 %}
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star"></small>
+                                                    <small class="fas fa-star"></small>
+                                                {% endif %}
+                                            </div>
+                                            <p>{{ reviews[i] }}</p>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            {% if not is_seller and rater %}
+                                <div class="col-md-6">
+                                    <h4 class="mb-4">Leave a review</h4>
+                                    <small>Your email address will not be published. Required fields are marked
+                                        *</small>
+                                    <form method="post" action="">
+                                        <div class="d-flex my-3">
+                                            <p class="product-name">{{ form.rate.label }}<br>
+                                                {{ form.rate() }}</p>
+                                        </div>
+                                        <div class="form-group">
+                                            {{ form.review.label(class="form-control-label") }}
+                                            {% if form.review.errors %}
+                                                {{ form.review(class="form-control form-control-md is-invalid") }}
+                                                <div class="invalid-feedback">
+                                                    {% for error in form.review.errors %}
+                                                        <span>{{ error }}</span>
+                                                    {% endfor %}
+                                                </div>
+                                            {% else %}
+                                                {{ form.review(class="form-control form-control-md") }}
+                                            {% endif %}
+                                        </div>
+                                        <div class="form-group">
+                                            <br>
+                                            {{ form.give_rate (class="btn btn-outline-info") }}
+                                        </div>
+                                    </form>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Shop Detail End -->
+
+
+    <!-- Products Start -->
+    <div class="container-fluid pt-5 pb-3">
+        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">You May Also Like</span>
+        </h2>
+        <div class="row px-xl-5">
+            {% for i in may_like %}
+                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                    <div class="product-item bg-light mb-4">
+                        <div class="product-img position-relative overflow-hidden">
+                            <img class="img-fluid w-100"
+                                 src="{{ url_for('static', filename='profile_pics/'+i.image_file) }}" alt="">
+                            {% if not is_seller %}
+                                <div class="product-action">
+                                    <a class="btn btn-outline-dark btn-square"
+                                       href="{{ url_for('add_to_cart',product_id=i.id) }}"><i
+                                            class="fa fa-shopping-cart"></i></a>
+                                    <a class="btn btn-outline-dark btn-square" href=""><i
+                                            class="fa fa-search"></i></a>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="text-center py-4">
+                            <a class="h6 text-decoration-none text-truncate"
+                               href="{{ url_for('product', product_id=i.id) }}">{{ i.product_name }}</a><br>
+                            <a class="h6 text-decoration-none text-truncate"
+                               href="{{ url_for('seller_products', seller_name=i.seller.seller_name) }}">{{ i.seller.seller_name }}</a>
+                            <div class="d-flex align-items-center justify-content-center mt-2">
+                                {% if i.discount==0 %}
+                                    <h5>{{ i.price }}L.E</h5>
+                                {% elif i.discount<1 %}
+                                    <h5>{{ i.price-(i.price*i.discount) }}L.E</h5>
+                                    <h6 class="text-muted ml-2">
+                                        <del>{{ i.price }}L.E</del>
+                                    </h6>
+                                {% elif i.discount>1 %}
+                                    <h5>{{ i.price-(i.price*i.discount/100) }}L.E</h5>
+                                    <h6 class="text-muted ml-2">
+                                        <del>{{ i.price }}L.E</del>
+                                    </h6>
+                                {% endif %}
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center mb-1">
+                                <div class="text-primary mr-2">
+                                    {% if i.rating==0 %}
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                    {% elif i.rating>0 and i.rating<1 %}
+                                        <small class="fas fa-star-half-alt"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                    {% elif i.rating==1 %}
+                                        <small class="fas fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                    {% elif i.rating>1 and i.rating<2 %}
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star-half-alt"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                    {% elif i.rating==2 %}
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                    {% elif i.rating>2 and i.rating<3 %}
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star-half-alt"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                    {% elif i.rating==3 %}
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                    {% elif i.rating>3 and i.rating<4 %}
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star-half-alt"></small>
+                                        <small class="far fa-star"></small>
+                                    {% elif i.rating==4 %}
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                    {% elif i.rating>4 and i.rating<5 %}
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star-half-alt"></small>
+                                    {% elif i.rating==5 %}
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                    {% endif %}
+                                </div>
+                                <small class="pt-1">({{ i.raters }} Reviews)</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- Products End -->
+{% endblock content %}

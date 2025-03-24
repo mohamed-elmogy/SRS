@@ -1,0 +1,122 @@
+{% extends "layout.html" %}
+{% block content %}
+    <!-- Shop Detail Start -->
+    <div class="container-fluid pb-5">
+        <div class="row px-xl-5">
+            <div class="col-lg-5 mb-30">
+                <div id="product-carousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner bg-light">
+                        <div class="carousel-item active">
+                            <img class="w-100 h-100"
+                                 src="{{ url_for('static', filename='profile_pics/'+product.image_file) }}" alt="Image">
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
+                        <i class="fa fa-2x fa-angle-left text-dark"></i>
+                    </a>
+                    <a class="carousel-control-next" href="#product-carousel" data-slide="next">
+                        <i class="fa fa-2x fa-angle-right text-dark"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-7 h-auto mb-30">
+                <div class="h-100 bg-light p-30">
+                    <h3>{{ product.product_name }}</h3>
+                    <div class="d-flex mb-3">
+                        <div class="text-primary mr-2">
+                            {% if product.rating==0 %}
+                                <small class="far fa-star"></small>
+                                <small class="far fa-star"></small>
+                                <small class="far fa-star"></small>
+                                <small class="far fa-star"></small>
+                                <small class="far fa-star"></small>
+                            {% elif product.rating>0 and product.rating<1 %}
+                                <small class="fas fa-star-half-alt"></small>
+                                <small class="far fa-star"></small>
+                                <small class="far fa-star"></small>
+                                <small class="far fa-star"></small>
+                                <small class="far fa-star"></small>
+                            {% elif product.rating==1 %}
+                                <small class="fas fa-star"></small>
+                                <small class="far fa-star"></small>
+                                <small class="far fa-star"></small>
+                                <small class="far fa-star"></small>
+                                <small class="far fa-star"></small>
+                            {% elif product.rating>1 and product.rating<2 %}
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star-half-alt"></small>
+                                <small class="far fa-star"></small>
+                                <small class="far fa-star"></small>
+                                <small class="far fa-star"></small>
+                            {% elif product.rating==2 %}
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="far fa-star"></small>
+                                <small class="far fa-star"></small>
+                                <small class="far fa-star"></small>
+                            {% elif product.rating>2 and product.rating<3 %}
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star-half-alt"></small>
+                                <small class="far fa-star"></small>
+                                <small class="far fa-star"></small>
+                            {% elif product.rating==3 %}
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="far fa-star"></small>
+                                <small class="far fa-star"></small>
+                            {% elif product.rating>3 and product.rating<4 %}
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star-half-alt"></small>
+                                <small class="far fa-star"></small>
+                            {% elif product.rating==4 %}
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="far fa-star"></small>
+                            {% elif product.rating>4 and product.rating<5 %}
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star-half-alt"></small>
+                            {% elif product.rating==5 %}
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                                <small class="fas fa-star"></small>
+                            {% endif %}
+                        </div>
+                        <small class="pt-1">({{ product.raters }} Reviews)</small>
+                    </div>
+                    <h3 class="font-weight-semi-bold mb-4">{{ order.price }} L.E</h3>
+                    <h5 class="font-weight-semi-bold mb-4">{{ buyer.username }}</h5>
+                    <h6 class="font-weight-semi-bold mb-4">{{ order.buyer_address }}</h6>
+                    {% if order.statue!='delivered' %}
+                        <form method="post" action="">
+                            <div>
+                                {{ form.statue.label }}
+                                {% for option in form.statue %}
+                                    <label>{{ option }} {{ option.label }}</label>
+                                {% endfor %}
+                            </div>
+                            <div class="form-group">
+                                {{ form.submit(class="btn btn-outline-info") }}
+                            </div>
+                        </form>
+                    {% else %}
+                        <p class="product-description">Statue: {{ order.statue }}</p>
+                    {% endif %}
+                </div>
+                <!-- Shop Detail End -->
+            </div>
+        </div>
+    </div>
+    <!-- Products End -->
+{% endblock content %}

@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+{% block content %}
+    <!-- Checkout Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-lg-8">
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">user information</span>
+                </h5>
+                <form method="POST" action="">
+                    <div class="bg-light p-30 mb-5">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                {{ form.user_name.label(class="form-control-label") }}
+                                {% if form.user_name.errors %}
+                                    {{ form.user_name(class="form-control form-control-md is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.user_name.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.user_name(class="form-control form-control-md") }}
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 form-group">
+                                {{ form.email.label(class="form-control-label") }}
+                                {% if form.email.errors %}
+                                    {{ form.email(class="form-control form-control-md is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.email.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.email(class="form-control form-control-md") }}
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 form-group">
+                                {{ form.phone.label(class="form-control-label") }}
+                                {% if form.phone.errors %}
+                                    {{ form.phone(class="form-control form-control-md is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.phone.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.phone(class="form-control form-control-md") }}
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 form-group">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                {{ form.submit(class="btn btn-outline-info") }}
+                            </div>
+                            <div class="col-md-6 form-group">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Checkout End -->
+{% endblock content %}

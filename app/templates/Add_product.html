@@ -1,0 +1,113 @@
+{% extends "layout.html" %}
+{% block content %}
+    <!-- Checkout Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-lg-8">
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Product information</span>
+                </h5>
+                <form method="POST" action="" enctype="multipart/form-data">
+                    {{ form.hidden_tag() }}
+                    <div class="bg-light p-30 mb-5">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                {{ form.picture.label() }}
+                                {{ form.picture(class="form-control form-control-md") }}
+                                {% if form.picture.errors %}
+                                    {% for error in form.picture.errors %}
+                                        <span class="text-danger">{{ error }}</span></br>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 form-group">
+                                {{ form.product_name.label(class="form-control-label") }}
+                                {% if form.product_name.errors %}
+                                    {{ form.product_name(class="form-control form-control-md is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.product_name.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.product_name(class="form-control form-control-md") }}
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 form-group">
+                                {{ form.description.label(class="form-control-label") }}
+                                {% if form.description.errors %}
+                                    {{ form.description(class="form-control form-control-md is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.description.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.description(class="form-control form-control-md") }}
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 form-group">
+                                {{ form.category.label(class="form-control-label") }}
+                                <select name="category" id="category" class="form-control form-control-md">
+                                    <option value="technology">technology</option>
+                                    <option value="laptops">laptops</option>
+                                    <option value="mobile">mobile</option>
+                                    <option value="gaming">gaming</option>
+                                    <option value="fashion">fashion</option>
+                                    <option value="furniture">furniture</option>
+                                    <option value="skincare">skincare</option>
+                                    <option value="others">others</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                {{ form.price.label(class="form-control-label") }}
+                                {% if form.price.errors %}
+                                    {{ form.price(class="form-control form-control-md is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.price.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.price(class="form-control form-control-md") }}
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 form-group">
+                                {{ form.quantity.label(class="form-control-label") }}
+                                {% if form.quantity.errors %}
+                                    {{ form.quantity(class="form-control form-control-md is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.quantity.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.quantity(class="form-control form-control-md") }}
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 form-group">
+                                {{ form.discount.label(class="form-control-label") }}
+                                {% if form.discount.errors %}
+                                    {{ form.discount(class="form-control form-control-md is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.discount.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.discount(class="form-control form-control-md") }}
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 form-group">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                {{ form.submit(class="btn btn-outline-info") }}
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Checkout End -->
+{% endblock content %}

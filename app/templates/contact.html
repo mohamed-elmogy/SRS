@@ -1,0 +1,149 @@
+{% extends "layout.html" %}
+{% block content %}
+    <head>
+        <title>Chatbot</title>
+        <style>
+            .chat-container {
+                max-width: 50%;
+                margin: 0 auto;
+                padding: 20px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                background-color: #f9f9f9;
+                font-family: Arial, sans-serif;
+            }
+
+            .chat-header {
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+            .chat-history {
+                min-height: 300px;
+                max-height: 300px;
+                overflow-y: auto;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                background-color: #fff;
+            }
+
+            .message-container {
+                margin-bottom: 10px;
+            }
+
+            .user-message {
+                display: inline-block;
+                padding: 8px 12px;
+                border-radius: 10px;
+                background-color: #e0e0e0;
+            }
+
+            .bot-message {
+                float: right;
+                display: inline-block;
+                padding: 8px 12px;
+                border-radius: 10px;
+                background-color: #c8e6c9;
+                text-align: right;
+            }
+
+            .user-input {
+                margin-top: 20px;
+            }
+
+            .user-input input {
+                width: 90%;
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+
+            .user-input button {
+                padding: 8px 12px;
+                border: none;
+                border-radius: 5px;
+                background-color: #4caf50;
+                color: #fff;
+                cursor: pointer;
+            }
+
+        </style>
+    </head>
+    <body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>smart customer service</h1>
+            <p>all the responses of the chatbot is recorded, so it may not help you in some cases</p>
+        </div>
+        <div id="chat-history" class="chat-history"></div>
+        <div class="user-input">
+            <input type="text" id="user-input" placeholder="Type your message..." autocomplete="off">
+            <button id="send-btn">Send</button>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Selectors
+            var chatHistory = $('#chat-history');
+            var userInput = $('#user-input');
+            var sendBtn = $('#send-btn');
+
+            // Event listener for send button click
+            sendBtn.on('click', function () {
+                var message = userInput.val().trim();
+                if (message !== '') {
+                    appendUserMessage(message);
+                    sendUserMessage(message);
+                    userInput.val('');
+                }
+            });
+
+            // Event listener for Enter key press
+            userInput.on('keypress', function (event) {
+                if (event.which === 13) {
+                    sendBtn.click();
+                }
+            });
+
+            // Function to append a user message to the chat history
+            function appendUserMessage(message) {
+                var userMessage = $('<div class="message-container"><div class="user-message"></div></div><br>');
+                userMessage.find('.user-message').text(message);
+                chatHistory.append(userMessage);
+                scrollToBottom();
+            }
+
+            // Function to append a chatbot message to the chat history
+            function appendBotMessage(message) {
+                var botMessage = $('<div class="message-container"><div class="bot-message"></div></div><br><br>');
+                botMessage.find('.bot-message').text(message);
+                chatHistory.append(botMessage);
+                scrollToBottom();
+            }
+
+            // Function to scroll to the bottom of the chat history
+            function scrollToBottom() {
+                chatHistory.scrollTop(chatHistory[0].scrollHeight);
+            }
+
+            // Function to send user message to the backend and receive chatbot response
+            function sendUserMessage(message) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/get-response',
+                    data: {message: message},
+                    success: function (response) {
+                        appendBotMessage(response);
+                    },
+                    error: function (error) {
+                        console.log('Error:', error);
+                    }
+                });
+            }
+        });
+    </script>
+    </body>
+{% endblock content %}

@@ -1,0 +1,107 @@
+{% extends "layout.html" %}
+{% block content %}
+    <!-- Checkout Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-lg-8">
+                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">user information</span>
+                </h5>
+                <form method="POST" action="">
+                    {{ form.hidden_tag() }}
+                    <div class="bg-light p-30 mb-5">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                {{ form.username.label(class="form-control-label") }}
+                                {% if form.username.errors %}
+                                    {{ form.username(class="form-control form-control-md is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.username.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.username(class="form-control form-control-md") }}
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 form-group">
+                                {{ form.email.label(class="form-control-label") }}
+                                {% if form.email.errors %}
+                                    {{ form.email(class="form-control form-control-md is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.email.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.email(class="form-control form-control-md") }}
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 form-group">
+                                {{ form.phone.label(class="form-control-label") }}
+                                {% if form.phone.errors %}
+                                    {{ form.phone(class="form-control form-control-md is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.phone.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.phone(class="form-control form-control-md") }}
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 form-group">
+                                {{ form.password.label(class="form-control-label") }}
+                                {% if form.password.errors %}
+                                    {{ form.password(class="form-control form-control-md is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.password.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.password(class="form-control form-control-md") }}
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 form-group">
+                                {{ form.confirm_password.label(class="form-control-label") }}
+                                {% if form.confirm_password.errors %}
+                                    {{ form.confirm_password(class="form-control form-control-md is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in form.confirm_password.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.confirm_password(class="form-control form-control-md") }}
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 form-group">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                {{ form.user_type.label }}
+                                {% for option in form.user_type %}
+                                    <label>{{ option }} {{ option.label }}</label>
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-6 form-group">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                {{ form.submit(class="btn btn-outline-info") }}
+                            </div>
+                            <div class="col-md-6 form-group">
+                            </div>
+                            <div class="border-top pt-3">
+                                <small class="text-muted">
+                                    Already Have An Account? <a class="ml-2" href="{{ url_for('login' ) }}">Sign In</a>
+                                </small>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- Checkout End -->
+{% endblock content %}

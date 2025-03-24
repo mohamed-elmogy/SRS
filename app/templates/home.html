@@ -1,0 +1,516 @@
+{% extends "layout.html" %}
+{% block content %}
+    <!-- Carousel Start -->
+    {% if not is_seller %}
+        <div class="container-fluid mb-3">
+            <div class="row px-xl-5">
+                <div class="col-lg-8">
+                    <div id="header-carousel" class="carousel slide carousel-fade mb-30 mb-lg-0" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-target="#header-carousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#header-carousel" data-slide-to="1"></li>
+                            <li data-target="#header-carousel" data-slide-to="2"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="carousel-item position-relative active" style="height: 430px;">
+                                <img class="position-absolute w-100 h-100"
+                                     src="{{ url_for('static',filename='img/technology.png') }}"
+                                     style="object-fit: cover;">
+                                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                    <div class="p-3" style="max-width: 700px;">
+                                        <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">
+                                            Technology</h1>
+                                        <p class="mx-md-5 px-5 animate__animated animate__bounceIn">here you can find
+                                            the latest technology products</p>
+                                        <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp"
+                                           href="{{ url_for('category',category='technology') }}">Shop Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item position-relative" style="height: 430px;">
+                                <img class="position-absolute w-100 h-100"
+                                     src="{{ url_for('static',filename='img/fashion.jpg') }}"
+                                     style="object-fit: cover;">
+                                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                    <div class="p-3" style="max-width: 700px;">
+                                        <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">
+                                            Fashion</h1>
+                                        <p class="mx-md-5 px-5 animate__animated animate__bounceIn">you can buy the
+                                            latest fashion from our shops</p>
+                                        <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp"
+                                           href="{{ url_for('category',category='fashion') }}">Shop Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item position-relative" style="height: 430px;">
+                                <img class="position-absolute w-100 h-100"
+                                     src="{{ url_for('static',filename='img/mobile.jpg') }}"
+                                     style="object-fit: cover;">
+                                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                    <div class="p-3" style="max-width: 700px;">
+                                        <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">
+                                            mobile</h1>
+                                        <p class="mx-md-5 px-5 animate__animated animate__bounceIn">you can buy the
+                                            latest mobile phones </p>
+                                        <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp"
+                                           href="{{ url_for('category',category='mobile') }}">Shop Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="product-offer mb-30" style="height: 200px;">
+                        <img class="img-fluid"
+                             src="{{ url_for('static', filename='profile_pics/'+high_value[0].image_file) }}" alt="">
+                        <div class="offer-text">
+                            <h6 class="text-white text-uppercase">Save {{ high_value[0].discount*100 }}%</h6>
+                            <h3 class="text-white mb-3">Special Offer</h3>
+                            <a href="{{ url_for('product', product_id=high_value[0].id) }}" class="btn btn-primary">Shop
+                                Now</a>
+                        </div>
+                    </div>
+                    <div class="product-offer mb-30" style="height: 200px;">
+                        <img class="img-fluid"
+                             src="{{ url_for('static', filename='profile_pics/'+high_value[1].image_file) }}" alt="">
+                        <div class="offer-text">
+                            <h6 class="text-white text-uppercase">Save {{ high_value[1].discount*100 }}%</h6>
+                            <h3 class="text-white mb-3">Special Offer</h3>
+                            <a href="{{ url_for('product', product_id=high_value[1].id) }}" class="btn btn-primary">Shop
+                                Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Carousel End -->
+
+
+        <!-- Featured Start -->
+        <div class="container-fluid pt-5">
+            <div class="row px-xl-5 pb-3">
+                <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                    <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+                        <h1 class="fa fa-check text-primary m-0 mr-3"></h1>
+                        <h5 class="font-weight-semi-bold m-0">Quality Product</h5>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                    <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+                        <h1 class="fa fa-shipping-fast text-primary m-0 mr-2"></h1>
+                        <h5 class="font-weight-semi-bold m-0">Free Shipping</h5>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                    <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+                        <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>
+                        <h5 class="font-weight-semi-bold m-0">14-Day Return</h5>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+                    <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
+                        <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>
+                        <h5 class="font-weight-semi-bold m-0">24/7 Support</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Featured End -->
+    {% endif %}
+
+    <!-- Categories Start -->
+    <div class="container-fluid pt-5">
+        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span
+                class="bg-secondary pr-3">Categories</span></h2>
+        <div class="row px-xl-5 pb-3">
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="{{ url_for('category',category='mobile') }}">
+                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>Mobile</h6>
+                            <small class="text-body">100 Products</small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="{{ url_for('category',category='technology') }}">
+                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>Technology</h6>
+                            <small class="text-body">100 Products</small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="{{ url_for('category',category='fashion') }}">
+                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>fashion</h6>
+                            <small class="text-body">100 Products</small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="{{ url_for('category',category='gaming') }}">
+                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="img/cat-1.jpg" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>Gaming</h6>
+                            <small class="text-body">100 Products</small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="{{ url_for('category',category='laptop') }}">
+                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="img/cat-2.jpg" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>Laptops</h6>
+                            <small class="text-body">100 Products</small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="{{ url_for('category',category='furniture') }}">
+                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="img/cat-1.jpg" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>Furniture</h6>
+                            <small class="text-body">100 Products</small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="{{ url_for('category',category='skincare') }}">
+                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="img/cat-3.jpg" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>Skin care</h6>
+                            <small class="text-body">100 Products</small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                <a class="text-decoration-none" href="{{ url_for('category',category='others') }}">
+                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
+                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
+                            <img class="img-fluid" src="img/cat-4.jpg" alt="">
+                        </div>
+                        <div class="flex-fill pl-3">
+                            <h6>Others</h6>
+                            <small class="text-body">100 Products</small>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+    <!-- Categories End -->
+
+
+    <!-- Products Start -->
+    <div class="container-fluid pt-5 pb-3">
+        {% if not is_seller and current_user.is_authenticated and r %}
+            <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Recommended Products</span>
+            </h2>
+        {% endif %}
+        <div class="row px-xl-5">
+            {% if not is_seller %}
+                {% for product in recomended %}
+                    <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                        <div class="product-item bg-light mb-4">
+                            <div class="product-img position-relative overflow-hidden">
+                                <img class="img-fluid w-100"
+                                     src="{{ url_for('static', filename='profile_pics/'+product.image_file) }}" alt="">
+                                {% if not is_seller %}
+                                    <div class="product-action">
+                                        <a class="btn btn-outline-dark btn-square"
+                                           href="{{ url_for('add_to_cart',product_id=product.id) }}"><i
+                                                class="fa fa-shopping-cart"></i></a>
+                                        <a class="btn btn-outline-dark btn-square" href=""><i
+                                                class="fa fa-search"></i></a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="text-center py-4">
+                                <a class="h6 text-decoration-none text-truncate"
+                                   href="{{ url_for('product', product_id=product.id) }}">{{ product.product_name }}</a>
+                                <div class="d-flex align-items-center justify-content-center mt-2">
+                                    {% if product.discount==0 %}
+                                        <h5>{{ product.price }}L.E</h5>
+                                    {% elif product.discount<1 %}
+                                        <h5>{{ product.price-(product.price*product.discount) }}L.E</h5>
+                                        <h6 class="text-muted ml-2">
+                                            <del>{{ product.price }}L.E</del>
+                                        </h6>
+                                    {% elif product.discount>1 %}
+                                        <h5>{{ product.price-(product.price*product.discount/100) }}L.E</h5>
+                                        <h6 class="text-muted ml-2">
+                                            <del>{{ product.price }}L.E</del>
+                                        </h6>
+                                    {% endif %}
+                                </div>
+                                <div class="d-flex align-items-center justify-content-center mb-1">
+                                    <div class="text-primary mr-2">
+                                        {% if product.rating==0 %}
+                                            <small class="far fa-star"></small>
+                                            <small class="far fa-star"></small>
+                                            <small class="far fa-star"></small>
+                                            <small class="far fa-star"></small>
+                                            <small class="far fa-star"></small>
+                                        {% elif product.rating>0 and product.rating<1 %}
+                                            <small class="fas fa-star-half-alt"></small>
+                                            <small class="far fa-star"></small>
+                                            <small class="far fa-star"></small>
+                                            <small class="far fa-star"></small>
+                                            <small class="far fa-star"></small>
+                                        {% elif product.rating==1 %}
+                                            <small class="fas fa-star"></small>
+                                            <small class="far fa-star"></small>
+                                            <small class="far fa-star"></small>
+                                            <small class="far fa-star"></small>
+                                            <small class="far fa-star"></small>
+                                        {% elif product.rating>1 and product.rating<2 %}
+                                            <small class="fas fa-star"></small>
+                                            <small class="fas fa-star-half-alt"></small>
+                                            <small class="far fa-star"></small>
+                                            <small class="far fa-star"></small>
+                                            <small class="far fa-star"></small>
+                                        {% elif product.rating==2 %}
+                                            <small class="fas fa-star"></small>
+                                            <small class="fas fa-star"></small>
+                                            <small class="far fa-star"></small>
+                                            <small class="far fa-star"></small>
+                                            <small class="far fa-star"></small>
+                                        {% elif product.rating>2 and product.rating<3 %}
+                                            <small class="fas fa-star"></small>
+                                            <small class="fas fa-star"></small>
+                                            <small class="fas fa-star-half-alt"></small>
+                                            <small class="far fa-star"></small>
+                                            <small class="far fa-star"></small>
+                                        {% elif product.rating==3 %}
+                                            <small class="fas fa-star"></small>
+                                            <small class="fas fa-star"></small>
+                                            <small class="fas fa-star"></small>
+                                            <small class="far fa-star"></small>
+                                            <small class="far fa-star"></small>
+                                        {% elif product.rating>3 and product.rating<4 %}
+                                            <small class="fas fa-star"></small>
+                                            <small class="fas fa-star"></small>
+                                            <small class="fas fa-star"></small>
+                                            <small class="fas fa-star-half-alt"></small>
+                                            <small class="far fa-star"></small>
+                                        {% elif product.rating==4 %}
+                                            <small class="fas fa-star"></small>
+                                            <small class="fas fa-star"></small>
+                                            <small class="fas fa-star"></small>
+                                            <small class="fas fa-star"></small>
+                                            <small class="far fa-star"></small>
+                                        {% elif product.rating>4 and product.rating<5 %}
+                                            <small class="fas fa-star"></small>
+                                            <small class="fas fa-star"></small>
+                                            <small class="fas fa-star"></small>
+                                            <small class="fas fa-star"></small>
+                                            <small class="fas fas fa-star-half-alt"></small>
+                                        {% elif product.rating==5 %}
+                                            <small class="fas fa-star"></small>
+                                            <small class="fas fa-star"></small>
+                                            <small class="fas fa-star"></small>
+                                            <small class="fas fa-star"></small>
+                                            <small class="fas fa-star"></small>
+                                        {% endif %}
+                                    </div>
+                                    <small class="pt-1">({{ product.raters }} Reviews)</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <!-- Products End -->
+
+
+    <!-- Offer Start -->
+    {% if current_user.is_authenticated and not is_seller and r %}
+        <div class="container-fluid pt-5 pb-3">
+
+            <div class="row px-xl-5">
+                <div class="col-md-6">
+                    <div class="product-offer mb-30" style="height: 300px;">
+                        <img class="img-fluid"
+                             src="{{ url_for('static', filename='profile_pics/'+high_value[2].image_file) }}" alt="">
+                        <div class="offer-text">
+                            <h6 class="text-white text-uppercase">Save {{ high_value[2].discount*100 }}%</h6>
+                            <h3 class="text-white mb-3">Special Offer</h3>
+                            <a href="{{ url_for('product', product_id=high_value[2].id) }}" class="btn btn-primary">Shop
+                                Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="product-offer mb-30" style="height: 300px;">
+                        <img class="img-fluid"
+                             src="{{ url_for('static', filename='profile_pics/'+high_value[3].image_file) }}" alt="">
+                        <div class="offer-text">
+                            <h6 class="text-white text-uppercase">Save {{ high_value[3].discount*100 }}%</h6>
+                            <h3 class="text-white mb-3">Special Offer</h3>
+                            <a href="{{ url_for('product', product_id=high_value[3].id) }}" class="btn btn-primary">Shop
+                                Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    <!-- Offer End -->
+
+
+    <!-- Products Start -->
+    <div class="container-fluid pt-5 pb-3">
+        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Top Selling</span>
+        </h2>
+        <div class="row px-xl-5">
+            {% for product in products.items %}
+                <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
+                    <div class="product-item bg-light mb-4">
+                        <div class="product-img position-relative overflow-hidden">
+                            <img class="img-fluid w-100"
+                                 src="{{ url_for('static', filename='profile_pics/'+product.image_file) }}" alt="">
+                            {% if not is_seller %}
+                                <div class="product-action">
+                                    <a class="btn btn-outline-dark btn-square"
+                                       href="{{ url_for('add_to_cart',product_id=product.id) }}"><i
+                                            class="fa fa-shopping-cart"></i></a>
+                                    <a class="btn btn-outline-dark btn-square" href=""><i
+                                            class="fa fa-search"></i></a>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="text-center py-4">
+                            <a class="h6 text-decoration-none text-truncate"
+                               href="{{ url_for('product', product_id=product.id) }}">{{ product.product_name }}</a><br>
+                            <a class="h6 text-decoration-none text-truncate"
+                               href="{{ url_for('seller_products', seller_name=product.seller.seller_name) }}">{{ product.seller.seller_name }}</a>
+                            <div class="d-flex align-items-center justify-content-center mt-2">
+                                {% if product.discount==0 %}
+                                    <h5>{{ product.price }}L.E</h5>
+                                {% elif product.discount<1 %}
+                                    <h5>{{ product.price-(product.price*product.discount) }}L.E</h5>
+                                    <h6 class="text-muted ml-2">
+                                        <del>{{ product.price }}L.E</del>
+                                    </h6>
+                                {% elif product.discount>1 %}
+                                    <h5>{{ product.price-(product.price*product.discount/100) }}L.E</h5>
+                                    <h6 class="text-muted ml-2">
+                                        <del>{{ product.price }}L.E</del>
+                                    </h6>
+                                {% endif %}
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center mb-1">
+                                <div class="text-primary mr-2">
+                                    {% if product.rating==0 %}
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                    {% elif product.rating>0 and product.rating<1 %}
+                                        <small class="fas fa-star-half-alt"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                    {% elif product.rating==1 %}
+                                        <small class="fas fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                    {% elif product.rating>1 and product.rating<2 %}
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star-half-alt"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                    {% elif product.rating==2 %}
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                    {% elif product.rating>2 and product.rating<3 %}
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star-half-alt"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                    {% elif product.rating==3 %}
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                    {% elif product.rating>3 and product.rating<4 %}
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star-half-alt"></small>
+                                        <small class="far fa-star"></small>
+                                    {% elif product.rating==4 %}
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="far fa-star"></small>
+                                    {% elif product.rating>4 and product.rating<5 %}
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star-half-alt"></small>
+                                    {% elif product.rating==5 %}
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                        <small class="fas fa-star"></small>
+                                    {% endif %}
+                                </div>
+                                <small class="pt-1">({{ product.raters }} Reviews)</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- Products End -->
+{% endblock content %}

@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block content %}
+    <!-- Cart Start -->
+    <div class="container-fluid">
+        <div class="row px-xl-5">
+            <div class="col-lg-8 table-responsive mb-5">
+                <table class="table table-light table-borderless table-hover text-center mb-0">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>Image</th>
+                        <th>Products</th>
+                        <th></th>
+                        <th>Price</th>
+                        <th>Remove</th>
+                    </tr>
+                    </thead>
+                    <tbody class="align-middle">
+                    {% for i in range(total) %}
+                        <tr>
+                            <td class="align-middle"><img
+                                    src="{{ url_for('static', filename='profile_pics/'+products[i].image_file) }}"
+                                    alt=""
+                                    style="width: 50px;"></td>
+                            <td class="align-middle">{{ products[i].product_name }}</td>
+                            <td class="align-middle"></td>
+                            <td class="align-middle">{{ orders[i].price }}</td>
+                            <td class="align-middle">
+                                <form method="post"
+                                      action="{{ url_for('cancel_order', order_id=orders[i].id) }}">
+                                    <button class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Cart End -->
+{% endblock content %}
